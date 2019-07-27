@@ -19,22 +19,28 @@ import SignInMenu from './menus/SignInMenu';
       const {authenticated} =this.state;
         return (
                  <Menu inverted fixed="top">
+
                    <Container>
+
                      <Menu.Item header as={NavLink} to='/'>
-                       <img src="/assets/logo.png" alt="logo" />
+
+                      <img src="/assets/logo.png" alt="logo" />
                        Re-vents
+
                      </Menu.Item>
+
                      <Menu.Item as={NavLink} to='/events' name="Events" />
+
                      <Menu.Item as={NavLink} to='/peoples' name="Peoples" />
 
                      <Menu.Item>
                        <Button as={Link} to='/createEvent' floated="right" positive inverted content="Create Event" />
-                     </Menu.Item>
-                      
-                      {authenticated?<SignInMenu signOut={this.handleSignOut}/>:<SIgnOutMenu signIn={this.handleSignIn}/>}
-                      
-                   </Container>
-                 </Menu>
+                     </Menu.Item>                      
+                     {authenticated?<SignInMenu signOut={this.handleSignOut}/>:<SIgnOutMenu signIn={this.handleSignIn}/>} 
+
+                  </Container>
+
+               </Menu>
         )
     }
 }
