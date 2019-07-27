@@ -1,14 +1,35 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux';
+import {createEvent,updateEvent} from '../eventAction'
 import { Segment, Form,Button} from 'semantic-ui-react';
+import cuid  from 'cuid'
 
-export default class EventForm extends Component {
-  state={
+const mapState=(state,ownProps)=>{
+  const eventId=ownProps.match.params.id;
+  let event={
     title:'',
     date:'',
     city:'',
     venue:'',
     hostedBy:''
   }
+  if(eventId&&state.events.length>0){
+    event=state.events.filter(event=>event.id===eventId)[0]
+  }
+  return{
+    event
+
+  }
+}
+
+const actions={
+  createEvent,updateEvent
+}
+
+
+
+ class EventForm extends Component {
+  state={...this.props.event}
   
   componentDidMount(){
     if(this.props.isSelected!==null){
@@ -23,8 +44,16 @@ export default class EventForm extends Component {
     evt.preventDefault();
     if(this.state.id){
       this.props.updateEvent(this.state)
+      this.props.history.push(`/events/${this.state.id}`)
+
     }else{
-      this.props.createEvent(this.state);
+      const newEvent={
+        ...this.state,
+        id:cuid(),
+       hostPhotoURl:'/assets/user.png'
+      }
+      this.props.createEvent(newEvent);
+      this.props.history.push(`/events`)
     }
   }
 
@@ -42,7 +71,6 @@ export default class EventForm extends Component {
 
 
     render() {
-      const {cancelEvent} =this.props
       const {title,date,city,venue,hostedBy} =this.state
         return (
                   <Segment>
@@ -90,9 +118,11 @@ export default class EventForm extends Component {
                       <Button positive type="submit">
                         Submit
                       </Button>
-                      <Button onClick={cancelEvent} type="button">Cancel</Button>
+                      <Button onClick={this.props.history.goBack} type="button">Cancel</Button>
                     </Form>
                   </Segment>
         )
     }
 }
+
+export default connect(mapState,actions)(EventForm);

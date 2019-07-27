@@ -29,7 +29,7 @@ import SignInMenu from './menus/SignInMenu';
 
                      </Menu.Item>
 
-                     <Menu.Item as={NavLink} to='/events' name="Events" />
+                     <Menu.Item as={NavLink} exact to='/events' name="Events" />
 
                      <Menu.Item as={NavLink} to='/peoples' name="Peoples" />
 
