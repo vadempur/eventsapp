@@ -9,12 +9,14 @@ import PeopleDashboard from './features/user/peopleDashboard/PeopleDashboard';
 import UserDetailed from './features/user/userDetailed/UserDetailed';
 import SettingsDashBoard from './features/user/settings/SettingsDashBoard';
 import EventForm from './features/events/eventform/EventForm';
+import ModalManager from './features/Modal/ModalManager';
 
  class App extends Component {
    
   render() {
     return (
       <Fragment>
+        <ModalManager/>
       <Route exact path='/' component={Homepage} />
       <Route  path='/(.+)' render={()=>(
         
